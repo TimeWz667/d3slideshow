@@ -41,12 +41,16 @@
         this.hide();
     };
 
-    Figure.prototype.hide = function () {
-        if (this.g !== null) this.g.attr("opacity", 0);
+    Figure.prototype.hide = function (t) {
+        if (this.g !== null) {
+          this.g.transition().duration(t||0).attr("opacity", 0);
+        }
     }
 
-    Figure.prototype.show = function () {
-        if (this.g !== null) this.g.attr("opacity", 1);
+    Figure.prototype.show = function (t) {
+        if (this.g !== null) {
+          this.g.transition().duration(t||0).attr("opacity", 1);
+        }
     }
 
     Figure.prototype.event = function (key, value) {
@@ -74,33 +78,33 @@
         }
     }
 
-    Object.defineProperty(Slide.prototype, "Chapter", {
+    Object.defineProperty(Slide.prototype, 'Chapter', {
         get: function () {
-            return this.text("Chapter");
+            return this.text('Chapter');
         }
     });
 
-    Object.defineProperty(Slide.prototype, "Section", {
+    Object.defineProperty(Slide.prototype, 'Section', {
         get: function () {
-            return this.text("Section");
+            return this.text('Section');
         }
     });
 
-    Object.defineProperty(Slide.prototype, "Context", {
+    Object.defineProperty(Slide.prototype, 'Context', {
         get: function () {
-            return marked(this.text("Context"));
+            return marked(this.text('Context'));
         }
     });
 
-    Object.defineProperty(Slide.prototype, "activate", {
+    Object.defineProperty(Slide.prototype, 'activate', {
         get: function () {
-            return this.event("activate");
+            return this.event('activate');
         }
     });
 
-    Object.defineProperty(Slide.prototype, "update", {
+    Object.defineProperty(Slide.prototype, 'update', {
         get: function () {
-            return this.event("update");
+            return this.event('update');
         }
     });
 
@@ -293,13 +297,19 @@
         });
     }
 
-    function highlight(figs, name) {
-        Object.values(figs).filter(fig => fig.Name != name).forEach(fig => fig.hide());
+    function highlight(figs, name, dt) {
+        Object.values(figs).filter(fig => fig.Name != name).forEach(fig => fig.hide(dt));
         var fig = figs[name];
         if (fig != null) {
-            fig.show();
+            fig.show(dt);
             return fig;
         }
+    }
+
+    function hideAll(figs) {
+        Object.values(figs).forEach(function(fig) {
+          fig.hide(0);
+        })
     }
 
     function create(app_tag, title) {
@@ -308,14 +318,10 @@
     }
 
 
-    function d3slideshow(app_tag, title) {
-        d3.select(app_tag).node().innerHTML = layout_template;
-        return new SlideShow(app_tag, title);
-    }
-
     exports.version = version;
     exports.create = create;
     exports.highlight = highlight;
+    exports.hideAll = hideAll;
 
 
     Object.defineProperty(exports, '__esModule', {
