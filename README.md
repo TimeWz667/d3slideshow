@@ -1,7 +1,8 @@
 # d3slideshow
 
-A data visualisation slideshow generating package
+d3slideshow.js is a package in charge of generating data visualisation slideshows. A created slideshow includes a description column on the left-hand side and a visualisation canvas on the right-hand side. The SVG canvas can be dynamically updated as the description scrolled. 
 
+d3slideshow.js recognises markdown language for parsing contexts, and the framework fits the lifecycle of d3.js which renders high-quality data visualisation.  
 
 ## Requirements
 
