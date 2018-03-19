@@ -79,7 +79,7 @@ d3slideshow.highlight(figs, "FigureA") # in <b>activate</b>
 
 
 #### A full example
-See https://github.com/TimeWz667/d3slideshow-example
+See https://github.com/TimeWz667/d3slideshow-example and [demo](https://timewz667.github.io/d3slideshow-example/index.html)
 
 
 
