@@ -2,7 +2,7 @@
     position: relative;
     display: inline-block;
     width: 30%;
-    top: 0px;
+    top: 0;
     z-index: 90;
     padding-bottom: 200px;
 }
@@ -20,7 +20,7 @@
 }
 
 #sections .chapter {
-    font-family: Arial, Helvetica, "san-serif";
+    font-family: Arial, Helvetica, "san-serif", sans-serif;
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 2px;
@@ -29,7 +29,7 @@
 }
 
 #sections .section {
-    font-family: Arial, Helvetica, "san-serif";
+    font-family: Arial, Helvetica, "san-serif", sans-serif;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 2px;

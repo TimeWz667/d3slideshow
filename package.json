@@ -1,0 +1,44 @@
+{
+  "name": "slide",
+  "version": "1.0.0",
+  "description": "a slide show generating tool with d3.js and vue.js",
+  "main": "build/obj-creator.js",
+  "unpkg": "build/obj-creator.min.js",
+  "module": "index",
+  "scripts": {
+    "pretest": "(if exist build rd /q /s build) && mkdir build && rollup -c",
+    "test": "tape test/**/*-test.js && eslint index.js src",
+    "build": "uglifyjs -b beautify=false build/d3slideshow.js -c -m -o build/d3slideshow.min.js",
+    "prepublishOnly": "npm run pretest && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimeWz667/d3slideshow.git"
+  },
+  "keywords": [
+    "slideshow",
+    "data-visaulisaion",
+    "d3js",
+    "vuejs"
+  ],
+  "author": "TimeWz667",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TimeWz667/d3slideshow/issues"
+  },
+  "homepage": "https://github.com/TimeWz667/d3slideshow#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0",
+    "eslint": "^4.19.1",
+    "rollup": "^0.59.4",
+    "tape": "^4.9.0",
+    "uglify-js-es6": "^2.8.9"
+  },
+  "dependencies": {
+    "d3v4": "^4.2.2",
+    "marked": "^0.4.0",
+    "vue.js": "^0.3.2"
+  }
+}
