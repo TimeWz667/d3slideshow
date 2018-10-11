@@ -1,6 +1,6 @@
 {
   "name": "slide",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "a slide show generating tool with d3.js and vue.js",
   "main": "build/obj-creator.js",
   "unpkg": "build/obj-creator.min.js",
