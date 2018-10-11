@@ -15,7 +15,6 @@ export class SlideShow {
                 bottom: 20,
                 left: 20
             },
-            YXratio: 0.8,
             Prop: 0.3
         };
 
@@ -48,39 +47,64 @@ export class SlideShow {
         return figure;
     }
 
-
     start () {
-        this.appendSlide();
         const lyo = this.Layout;
+
+        var chapters = this.Slides
+            .map(sl => sl.Chapter)
+            .filter((v, i, a) => a.indexOf(v) === i);
+
+        var sections = chapters.reduce((acc, ch) => {
+            acc[ch] = this.Slides.filter(sl => sl.Chapter === ch)
+                .map(sl => sl.Section)
+                .filter((v, i, a) => a.indexOf(v) === i);
+            return acc;
+        }, {})
 
         this.App = new Vue({
             el: this.TagApp,
             data: {
-                Slides: this.Slides,
-                Figures: this.Figures,
+                Slides: d3.nest().key(sl => sl.Chapter).entries(this.Slides).reduce((acc, v) => {
+                    acc[v.key] = v.values;
+                    return acc;
+                }, {}),
                 Title: this.Title,
-                Page: 0,
-                Progress: 0,
-                SectionPositions: [],
-                TitleTop: 0,
+                CurrentChapter: chapters[0],
+                CurrentSection: sections[chapters[0]][0],
+                CurrentPage: 1,
+                CurrentSlide: this.Slides[0],
+                Chapters: chapters,
+                Sections: sections,
                 svg: null,
                 g: null,
                 isPrepared: false
             },
-            created: function () {
-                d3.select(window)
-                    .on("scroll.scroller", this.position)
-                    .on("resize.scroller", this.resize);
-            },
             mounted: function () {
+                //d3.select(this.$el).select("#sections").style("width", lyo.Prop * 100 + "%")
+                d3.select(this.$el)
+                    .selectAll("#nav-ch")
+                    .on("click", (d, i) => {
+                        this.CurrentChapter = this.Chapters[i];
+                    })
 
-                this.TitleTop = this.$el.getBoundingClientRect().top;
 
-                d3.select(this.$el).select("#sections").style("width", lyo.Prop * 100 + "%")
+                d3.select(this.$el)
+                    .select(".previous")
+                    .classed("disabled", this.LastPage === false)
+                    .on("click", (d, i) => {
+                        if (this.LastPage) this.CurrentPage = this.LastPage;
+                    });
 
+                d3.select(this.$el)
+                    .select(".next")
+                    .classed("disabled", this.NextPage === false)
+                    .on("click", (d, i) => {
+                        if (this.NextPage) this.CurrentPage = this.NextPage;
+                    });
 
                 const canvas = d3.select(this.$el).select("#canvas");
-                canvas.style("width", 95 - lyo.Prop * 100 + "%");
+                //canvas.style("width", 95 - lyo.Prop * 100 + "%");
+
                 lyo.Width = canvas.node().getBoundingClientRect().width;
                 lyo.Height = lyo.Width * lyo.YXratio;
                 canvas.style("height", lyo.Height + "px");
@@ -101,66 +125,62 @@ export class SlideShow {
 
                 this.isPrepared = true;
 
-                this.resize();
-                d3.timeout(this.position, 200);
             },
             computed: {
-
+                /**
+                 * @return {number, boolean}
+                 */
+                LastPage: function () {
+                    if (this.CurrentPage === 1) {
+                        return false;
+                    } else {
+                        return this.CurrentPage - 1;
+                    }
+                },
+                /**
+                 * @return {number, boolean}
+                 */
+                NextPage: function () {
+                    if (this.CurrentPage === this.Slides[this.CurrentChapter].length) {
+                        return false;
+                    } else {
+                        return this.CurrentPage + 1;
+                    }
+                }
             },
             methods: {
-                position: function () {
-                    const offset = 0;
-                    const pos = offset - this.$el.getBoundingClientRect().top;
-                    const currIndex = Math.min(this.Slides.length - 1, d3.bisect(this.SectionPositions, pos));
-                    const prevIndex = Math.max(currIndex - 1, 0);
-                    const prevTop = this.SectionPositions[prevIndex];
-                    const prog = (pos - prevTop + offset) / (this.SectionPositions[currIndex] - prevTop);
-                    this.Progress = (prog > 1) ? 0 : prog;
-                    this.Page = (prog > 1) ? currIndex + 1 : currIndex;
-
-                    const titleBot = d3.select(this.$el).select("#title").node().getBoundingClientRect().bottom;
-                    d3.select(this.$el).select("#canvas").style("top", Math.max(titleBot, this.TitleTop) + 10 + "px");
-                },
-                resize: function () {
-                    const containerTop = this.$el.getBoundingClientRect().top + window.pageYOffset;
-
-                    this.SectionPositions = [];
-                    let startPos;
-                    let pos = this.SectionPositions;
-
-                    d3.select(this.$el).selectAll(".slide").each(function (d, i) {
-                        const top = this.getBoundingClientRect().top;
-                        if (i === 0) {
-                            startPos = top;
-                        }
-                        pos.push(top - startPos);
-                    });
-
-                },
                 activate: function () {
                     if (this.Page > 0) {
                         this.Slides[this.Page - 1].activate(this.Figures);
                     }
-                },
-                update: function () {
-                    if (this.Page > 0) {
-                        this.Slides[this.Page - 1].update(this.Figures, this.Progress);
-                    }
                 }
             },
             watch: {
-                Page: function () {
-                    //console.log("activate page " + this.Page);
+                CurrentChapter: function () {
                     if (!this.isPrepared) {
                         return;
                     }
-                    d3.selectAll(".slide")
-                        .style("opacity", (d, i) => i === this.Page - 1 ? 1 : 0.1);
-                    this.activate(this.page)
+                    this.CurrentPage = 1;
+
+                    d3.select(this.$el).select(".next")
+                        .classed("disabled", this.NextPage === false);
+
+                    this.CurrentSlide = this.Slides[this.CurrentChapter][this.CurrentPage - 1];
+                    this.activate();
                 },
-                Progress: function () {
-                    //console.log('update to ' + this.Progress)
-                    this.update(this.page, this.progress)
+                CurrentPage: function () {
+                    if (!this.isPrepared) {
+                        return;
+                    }
+
+                    d3.select(this.$el).select(".previous")
+                        .classed("disabled", this.LastPage === false);
+
+                    d3.select(this.$el).select(".next")
+                        .classed("disabled", this.NextPage === false);
+
+                    this.CurrentSlide = this.Slides[this.CurrentChapter][this.CurrentPage - 1];
+                    this.activate();
                 }
             }
         });
