@@ -36,8 +36,6 @@ export class Slide {
 
 }
 
-
-
 Object.defineProperty(Slide.prototype, 'Chapter', {
     get: function () {
         return this.text('Chapter');

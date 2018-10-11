@@ -36,9 +36,5 @@
     "tape": "^4.9.0",
     "uglify-js-es6": "^2.8.9"
   },
-  "dependencies": {
-    "d3v4": "^4.2.2",
-    "marked": "^0.4.0",
-    "vue.js": "^0.3.2"
-  }
+  "dependencies": {}
 }
