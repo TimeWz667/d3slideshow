@@ -179,6 +179,7 @@ var d3slideshow = (function (exports) {
                         acc[v.key] = v.values;
                         return acc;
                     }, {}),
+                    Figures: this.Figures,
                     Title: this.Title,
                     CurrentChapter: chapters[0],
                     CurrentSection: sections[chapters[0]][0],
@@ -213,12 +214,12 @@ var d3slideshow = (function (exports) {
                             if (this.NextPage) this.CurrentPage = this.NextPage;
                         });
 
-                    const canvas = d3.select(this.$el).select("#canvas");
+                    const canvas = d3.select(this.$el).select("#canvas-slide");
                     //canvas.style("width", 95 - lyo.Prop * 100 + "%");
 
-                    lyo.Width = canvas.node().getBoundingClientRect().width;
-                    lyo.Height = lyo.Width * lyo.YXratio;
-                    canvas.style("height", lyo.Height + "px");
+                    lyo.Width =  parseFloat(canvas.style("width").split("px")[0]);
+                    lyo.Height =parseFloat(canvas.style("height").split("px")[0]);
+
 
                     lyo.gWidth = lyo.Width - lyo.Margin.left - lyo.Margin.right;
                     lyo.gHeight = lyo.Height - lyo.Margin.top - lyo.Margin.bottom;
@@ -327,7 +328,7 @@ var d3slideshow = (function (exports) {
         '<div>Context</div>' +
         '</section>' +
         '</div>' +
-        '<div class="col-sm-8 col-xs-12" style="height: 100%;"><div id="canvas"></div></div>' +
+        '<div class="col-sm-8 col-xs-12" style="height: 100%;"><div id="canvas-slide"></div></div>' +
         '<div id="page-footer"><ul class="pager">' +
         '<li class="previous"><a href="#">Previous</a></li>' +
         '<li class="next"><a href="#">Next</a></li>' +

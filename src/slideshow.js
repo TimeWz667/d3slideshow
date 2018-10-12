@@ -68,6 +68,7 @@ export class SlideShow {
                     acc[v.key] = v.values;
                     return acc;
                 }, {}),
+                Figures: this.Figures,
                 Title: this.Title,
                 CurrentChapter: chapters[0],
                 CurrentSection: sections[chapters[0]][0],
@@ -102,12 +103,12 @@ export class SlideShow {
                         if (this.NextPage) this.CurrentPage = this.NextPage;
                     });
 
-                const canvas = d3.select(this.$el).select("#canvas");
+                const canvas = d3.select(this.$el).select("#canvas-slide");
                 //canvas.style("width", 95 - lyo.Prop * 100 + "%");
 
-                lyo.Width = canvas.node().getBoundingClientRect().width;
-                lyo.Height = lyo.Width * lyo.YXratio;
-                canvas.style("height", lyo.Height + "px");
+                lyo.Width =  parseFloat(canvas.style("width").split("px")[0]);
+                lyo.Height =parseFloat(canvas.style("height").split("px")[0]);
+
 
                 lyo.gWidth = lyo.Width - lyo.Margin.left - lyo.Margin.right;
                 lyo.gHeight = lyo.Height - lyo.Margin.top - lyo.Margin.bottom;

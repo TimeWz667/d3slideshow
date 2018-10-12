@@ -51,6 +51,12 @@
     /* background-color: #d1d; */
 }
 
+#canvas-slide {
+    z-index:1;
+    height: 100%;
+    width: 100%;
+}
+
 #pager {
     bottom: 20px;
     left: 20px;
@@ -59,4 +65,3 @@
     /* background-color: darkgrey; */
     border-bottom-color: darkslategray;
 }
-

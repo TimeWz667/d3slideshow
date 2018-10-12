@@ -30,7 +30,7 @@ const slide_template = '<div class="row" style="padding: 30px; height: 95vh">' +
     '<div>Context</div>' +
     '</section>' +
     '</div>' +
-    '<div class="col-sm-8 col-xs-12" style="height: 100%;"><div id="canvas"></div></div>' +
+    '<div class="col-sm-8 col-xs-12" style="height: 100%;"><div id="canvas-slide"></div></div>' +
     '<div id="page-footer"><ul class="pager">' +
     '<li class="previous"><a href="#">Previous</a></li>' +
     '<li class="next"><a href="#">Next</a></li>' +
