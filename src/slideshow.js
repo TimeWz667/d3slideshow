@@ -125,7 +125,7 @@ export class SlideShow {
                 }
 
                 this.isPrepared = true;
-
+                this.activate();
             },
             computed: {
                 /**
