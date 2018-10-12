@@ -236,7 +236,7 @@ var d3slideshow = (function (exports) {
                     }
 
                     this.isPrepared = true;
-
+                    this.activate();
                 },
                 computed: {
                     /**
