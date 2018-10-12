@@ -151,9 +151,7 @@ export class SlideShow {
             },
             methods: {
                 activate: function () {
-                    if (this.Page > 0) {
-                        this.Slides[this.Page - 1].activate(this.Figures);
-                    }
+                    this.CurrentSlide.activate(this.Figures);
                 }
             },
             watch: {
