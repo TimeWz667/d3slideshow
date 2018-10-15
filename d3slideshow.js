@@ -89,14 +89,14 @@ var d3slideshow = (function (exports) {
 
         show (t) {
             if (this.g !== null) {
-                this.g.transition().duration(t||0).attr("opacity", 1);
+                this.g.transition().duration(t||0).attr("display", "inline");
             }
         }
 
 
         hide (t) {
             if (this.g !== null) {
-                this.g.transition().duration(t || 0).attr("opacity", 0);
+                this.g.transition().duration(t || 0).attr("display", "none");
             }
         }
 

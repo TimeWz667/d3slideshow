@@ -25,7 +25,7 @@ export class Figure {
 
     hide (t) {
         if (this.g !== null) {
-            this.g.transition().duration(t || 0).attr("disply", "none");
+            this.g.transition().duration(t || 0).attr("display", "none");
         }
     }
 
