@@ -23,7 +23,7 @@ const slide_template = '<div class="row" style="padding: 30px; height: 95vh">' +
 
     '<div class="col-sm-4 col-xs-12" style="height: 100%;">' +
     '<section class="slide">' +
-    '<div class="prefix"></div>' +
+    // '<div class="prefix"></div>' +
     '<div class="chapter"><h3>{{ CurrentChapter }}</h3></div>' +
     '<div class="section">{{ CurrentSlide.Section }}</div>' +
     '<div v-html="CurrentSlide.Context"></div>' +
