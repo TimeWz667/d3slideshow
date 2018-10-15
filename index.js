@@ -27,7 +27,6 @@ const slide_template = '<div class="row" style="padding: 30px; height: 95vh">' +
     '<div class="chapter"><h3>{{ CurrentChapter }}</h3></div>' +
     '<div class="section">{{ CurrentSlide.Section }}</div>' +
     '<div v-html="CurrentSlide.Context"></div>' +
-    '<div>Context</div>' +
     '</section>' +
     '</div>' +
     '<div class="col-sm-8 col-xs-12" style="height: 100%;"><div id="canvas-slide"></div></div>' +

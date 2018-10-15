@@ -15,11 +15,11 @@
     color: #363648;
 }
 
-#sections .prefix {
+.slide > .prefix {
     height: 100px;
 }
 
-#sections .chapter {
+.slide > .chapter {
     font-family: Arial, Helvetica, "san-serif", sans-serif;
     font-size: 18px;
     font-weight: bold;
@@ -28,7 +28,7 @@
     line-height: 1.5em;
 }
 
-#sections .section {
+.slide > .section {
     font-family: Arial, Helvetica, "san-serif", sans-serif;
     font-size: 16px;
     font-weight: bold;
