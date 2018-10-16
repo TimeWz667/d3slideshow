@@ -7,3 +7,7 @@ build/
 
 playground.js
 .idea
+
+example.js
+example.html
+*html

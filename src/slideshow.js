@@ -1,9 +1,13 @@
-import {Slide} from './slide'
-import {Figure} from './figure'
+import {
+    Slide
+} from './slide'
+import {
+    Figure
+} from './figure'
 
 
 export class SlideShow {
-    constructor (app_tag, title) {
+    constructor(app_tag, title) {
         this.Container = d3.select(app_tag);
         this.Title = title;
         this.TagApp = app_tag;
@@ -22,7 +26,7 @@ export class SlideShow {
         this.Slides = [];
     }
 
-    layout (key, value) {
+    layout(key, value) {
         if (arguments.length > 1) {
             this.Layout[key] = value;
             return this;
@@ -33,13 +37,13 @@ export class SlideShow {
         return this;
     }
 
-    appendSlide (slide) {
+    appendSlide(slide) {
         let s = slide || new Slide();
         this.Slides.push(s);
         return s;
     }
 
-    appendFigure (figure) {
+    appendFigure(figure) {
         if (typeof figure === "string") {
             figure = new Figure(figure);
         }
@@ -47,7 +51,7 @@ export class SlideShow {
         return figure;
     }
 
-    start () {
+    start() {
         const lyo = this.Layout;
 
         var chapters = this.Slides
@@ -90,14 +94,14 @@ export class SlideShow {
 
 
                 d3.select(this.$el)
-                    .select(".previous")
+                    .select("#previous")
                     .classed("disabled", this.LastPage === false)
                     .on("click", (d, i) => {
                         if (this.LastPage) this.CurrentPage = this.LastPage;
                     });
 
                 d3.select(this.$el)
-                    .select(".next")
+                    .select("#next")
                     .classed("disabled", this.NextPage === false)
                     .on("click", (d, i) => {
                         if (this.NextPage) this.CurrentPage = this.NextPage;
@@ -106,8 +110,8 @@ export class SlideShow {
                 const canvas = d3.select(this.$el).select("#canvas-slide");
                 //canvas.style("width", 95 - lyo.Prop * 100 + "%");
 
-                lyo.Width =  parseFloat(canvas.style("width").split("px")[0]);
-                lyo.Height =parseFloat(canvas.style("height").split("px")[0]);
+                lyo.Width = parseFloat(canvas.style("width").split("px")[0]);
+                lyo.Height = parseFloat(canvas.style("height").split("px")[0]);
 
 
                 lyo.gWidth = lyo.Width - lyo.Margin.left - lyo.Margin.right;
@@ -161,7 +165,7 @@ export class SlideShow {
                     }
                     this.CurrentPage = 1;
 
-                    d3.select(this.$el).select(".next")
+                    d3.select(this.$el).select("#next")
                         .classed("disabled", this.NextPage === false);
 
                     this.CurrentSlide = this.Slides[this.CurrentChapter][this.CurrentPage - 1];
@@ -172,10 +176,10 @@ export class SlideShow {
                         return;
                     }
 
-                    d3.select(this.$el).select(".previous")
+                    d3.select(this.$el).select("#previous")
                         .classed("disabled", this.LastPage === false);
 
-                    d3.select(this.$el).select(".next")
+                    d3.select(this.$el).select("#next")
                         .classed("disabled", this.NextPage === false);
 
                     this.CurrentSlide = this.Slides[this.CurrentChapter][this.CurrentPage - 1];

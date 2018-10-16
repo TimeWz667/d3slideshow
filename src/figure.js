@@ -1,14 +1,14 @@
 export class Figure {
-    constructor (name, init) {
+    constructor(name, init) {
         this.Name = name;
         this.g = null;
         this.elements = {};
         this.width = 0;
         this.height = 0;
-        this.init = init || function() {};
+        this.init = init || function () {};
     }
 
-    initialise (g, width, height) {
+    initialise(g, width, height) {
         this.width = width;
         this.height = height;
         this.g = g.append("g").attr("id", this.Name);
@@ -16,20 +16,20 @@ export class Figure {
         this.hide();
     }
 
-    show (t) {
+    show(t) {
         if (this.g !== null) {
-            this.g.transition().duration(t||0).attr("display", "inline");
+            this.g.transition().duration(t || 0).style("display", "inline");
         }
     }
 
 
-    hide (t) {
+    hide(t) {
         if (this.g !== null) {
-            this.g.transition().duration(t || 0).attr("display", "none");
+            this.g.transition().duration(t || 0).style("display", "none");
         }
     }
 
-    event (key, value) {
+    event(key, value) {
         if (arguments.length > 1) {
             this[key] = value;
             return this;
