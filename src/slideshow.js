@@ -152,6 +152,7 @@ export class SlideShow {
                         return this.CurrentPage + 1;
                     }
                 }
+
             },
             methods: {
                 activate: function () {
